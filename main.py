@@ -47,23 +47,21 @@ def main_menu():
         #BOTOES
         button_1 = pygame.Rect(300, 320, 200, 80) #jogar | lado - cima baixo - largura botao - altura botao  
         button_2 = pygame.Rect(614, 456, 106, 50) #opcoes
-        #button_3 = pygame.Rect(60, 449, 125, 50) #sair
+       
         if button_1.collidepoint((mx, my)):
             if click:
                 game()
-        #if button_2.collidepoint((mx, my)): #jogar
-            #if click:
+        
                 #options()
         if button_2.collidepoint((mx, my)):
             if click:
                 exite()
         pygame.draw.rect(screen, (95, 163, 55), button_1)
         pygame.draw.rect(screen, (95, 163, 55), button_2)  
-       # pygame.draw.rect(screen, (95, 163, 55), button_3)
+    
         #TEXTO
         draw_text('JOGAR', font1, (222, 222, 18), screen, 310, 325) #lado (maior = + p direita) - cima baixo (maior = + baixo)
         draw_text('sair', font2, (222, 222, 18), screen,  630, 463)
-        #draw_text('sair', font3, (222, 222, 18), screen, 85, 456)
 
         click = False
         for event in pygame.event.get():
@@ -118,6 +116,14 @@ def game():
     #loop do reset do game e botões de combate
 
     while not fgExit:
+        pygame.draw.rect(tela, branco, [0, altura_janela-40, largura_janela, 40])
+        texto("pontos de vida: "+str(vidafazendeiro), preto, 20, 10, altura_janela-30) #vida do jogador 1 #str()" que serve para transformar os valores de batalha que são calculados numericamente em texto a ser exibido na tela.
+        texto("pontos de vida: "+str(vidaespantalho), preto, 20, 500, altura_janela-30) #vida do jogador 2
+        pygame.display.update()
+
+        
+        
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 fgExit = True
@@ -128,10 +134,7 @@ def game():
                     especialfazendeiro = 10
                     especialespantalho = 10
                     turno = randint (0, 1) #na primeira vez é sorteado a vez dos jogadores aleatoriamente usando o "randint (0, 1)"
-                    pygame.draw.rect(tela, branco, [0, altura_janela-40, largura_janela, 40])
-                    texto("pontos de vida: "+str(vidafazendeiro), preto, 20, 10, altura_janela-30) #vida do jogador 1 #str()" que serve para transformar os valores de batalha que são calculados numericamente em texto a ser exibido na tela.
-                    texto("pontos de vida: "+str(vidaespantalho), preto, 20, 500, altura_janela-30) #vida do jogador 2
-                    pygame.display.update()
+                   
 
                     #JOGADOR 1 - FAZENDEIRO
             if event.type == pygame.KEYDOWN and vidafazendeiro >0 and vidaespantalho >0:            
@@ -187,19 +190,19 @@ def game():
                 pygame.draw.rect(tela, branco, [0, altura_janela-40, largura_janela, 40])
                 texto("Pontos de vida: "+str(vidafazendeiro), preto, 20, 10, altura_janela-30)
                 texto("Pontos de vida: "+str(vidaespantalho), preto, 20, 500, altura_janela-30)
-                pygame.display.update()
+                
             if vidafazendeiro <= 0: #pontos de vida menor ou igual que 0
                 print ('fazendeiro dead')
                 pygame.draw.rect(tela, branco, [0, altura_janela-40, largura_janela, 40]) #desenho da área da escrita
                 texto("Pontos de vida: morto", preto, 20, 10, altura_janela-30)
                 texto("Pontos de vida: "+str(vidaespantalho), preto, 20, 500, altura_janela-30)
-                pygame.display.update()
+                
             if vidaespantalho <= 0: #pontos de vida menor ou igual que 0
                 print ('espantalho dead')
                 pygame.draw.rect(tela, branco, [0, altura_janela-40, largura_janela, 40])
                 texto("Pontos de vida: morto", preto, 20, 500, altura_janela-30)
                 texto("Pontos de vida: "+str(vidafazendeiro), preto, 20, 10, altura_janela-30)
-                pygame.display.update()
+                
 
 
     #exibição de personagens/cenário, barra de especial e vez do jogador
@@ -217,10 +220,10 @@ def game():
             texto("vez do jogador 1", preto, 0, 120, 100) #escrita na tela em cada turno
         if turno == 1 and vidafazendeiro > 0 and vidaespantalho > 0:
             texto("vez do jogador 2", preto, 0, 550, 100) #escrita na tela em cada turno        
-        pygame.display.update()
         clock.tick(60)
 
 
+        pygame.display.update()
     pygame.quit()
 
 def exite():
